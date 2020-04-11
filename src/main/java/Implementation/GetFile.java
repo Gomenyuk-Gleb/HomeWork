@@ -17,29 +17,33 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/download")
+@WebServlet("/watch")
 public class GetFile extends HttpServlet {
     private final static EntityManager entityManager = SETFile.getEntityManager();
+    static List<String> strings = new ArrayList<>();
+    static List<DBTable> files = new ArrayList<>();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String fileName = req.getParameter("fileName");
-        List<DBTable> files = new ArrayList<>();
         if (fileName.equals("ALL")) {
-            System.out.println("all");
             files = selectAllFiles();
-                    }
-        System.out.println(files.toString());
-
-        for (DBTable fileEntity : files) {
-            System.out.println("Download");
-            File file = new File("D:\\pere", fileEntity.getNameFile() + ".zip");
-            writeBytes(file, fileEntity.getFileLink());
+            strings = allNameFile(files);
         }
 
-        req.setAttribute("filePost", files);
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/lib/results.jsp");
-        dispatcher.forward(req, resp);
+        if (fileName.equals("ALL")) {
+            List<DBTable> dbTables = files;
+            req.setAttribute("ordersList", dbTables);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/results.jsp");
+            dispatcher.forward(req, resp);
+        }
+    }
+
+    public List<String> allNameFile(List<DBTable> files) {
+        for (int i = 0; files.size() > i; i++) {
+            strings.add(files.get(i).getName());
+        }
+        return strings;
     }
 
     public List<DBTable> selectAllFiles() {
@@ -47,15 +51,11 @@ public class GetFile extends HttpServlet {
         return query.getResultList();
     }
 
-
-    public void writeBytes(File file, byte[] fileZIP) {
-        try {
-            OutputStream os = new FileOutputStream(file);
-            os.write(fileZIP);
-            System.out.println("E***** URAAAA");
-            os.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+public static List<DBTable> getFiles(){
+        return files;
+}
+    public static List<String> getStrings() {
+        return strings;
     }
+
 }

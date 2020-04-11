@@ -6,8 +6,8 @@
 <body>
 
 <h1>File upload was successful. Now you can download files</h1>
-<form action="download" method="get">
-    <a href="download?fileName=ALL">Download all files</a>
+<form action="watch" method="get">
+    <a href="watch?fileName=ALL">Download all files</a>
 </form>
 </body>
 </html>

@@ -6,14 +6,17 @@
 </head>
 <body>
 <h1>File</h1>
-<p>HELP</p>
+<p>All file</p>
+<form action="watch" method="get">
 <table border="1">
-    <c:forEach items="${filePost}" var="a">
+    <c:forEach items="${ordersList}" var="a">
         <tr>
-            <td><c:out value="${a.fileName}"/></td>
-            <td><c:out value="${a.size}"/></td>
+            <td><c:out value="${a.name}"/></td>
+            <td><p><a href="save?name=${a.name}">Save </a></p></td>
         </tr>
     </c:forEach>
 </table>
+
+<a href="save?name=ALL">Save All </a>
 </body>
 </html>

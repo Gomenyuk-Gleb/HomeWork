@@ -33,8 +33,8 @@ public class DBTable {
     public byte[] getFileLink() { return fileLink; }
     public void setFileLink(byte[] fileLink) { this.fileLink = fileLink; }
     public java.lang.Long getId() { return id; }
-    public String getNameFile() { return fileName; }
-    public Long getLong() { return size; }
+    public String getName() { return fileName; }
+    public Long getLnk() { return size; }
 
     @Override
     public String toString() {
